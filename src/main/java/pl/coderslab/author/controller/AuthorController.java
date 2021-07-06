@@ -1,10 +1,13 @@
-package pl.coderslab.author;
+package pl.coderslab.author.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import pl.coderslab.author.Author;
+import pl.coderslab.author.AuthorService;
 
 @Controller
 @RequestMapping("/author")
@@ -30,9 +33,9 @@ public class AuthorController {
     }
 
     @RequestMapping("/all")
-    @ResponseBody
-    public String getAllAuthors() {
-        return authorService.getAllAutors().toString();
+    public String getAllAuthors(Model model) {
+        model.addAttribute("authors", authorService.getAllAutors());
+        return "author/all";
     }
 
     @RequestMapping("/update/{id}/{firstname}")

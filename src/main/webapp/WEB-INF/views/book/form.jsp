@@ -13,6 +13,7 @@
 </head>
 <body>
 <form:form method="post" modelAttribute="book">
+    <form:hidden path="id"/>
     Tytuł: <form:input path="title"/><br>
     Rating: <form:input path="rating" type="number"/><br>
     Opis: <form:textarea path="description"/><br>

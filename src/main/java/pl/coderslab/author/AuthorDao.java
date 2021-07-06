@@ -30,8 +30,7 @@ public class AuthorDao {
         entityManager.merge(author);
     }
 
-    public void delete(long id) {
-        Author author = findById(id);
+    public void delete(Author author) {
         entityManager.remove(entityManager.contains(author) ? author : entityManager.merge(author));
     }
 }

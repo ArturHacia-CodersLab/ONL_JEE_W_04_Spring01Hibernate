@@ -2,6 +2,8 @@ package pl.coderslab.author;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import pl.coderslab.book.Book;
+import pl.coderslab.book.BookService;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -10,6 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AuthorService {
     private final AuthorDao authorDao;
+    private final BookService bookService;
 
     public void saveAuthor(Author author) {
         authorDao.saveAuthor(author);
@@ -28,6 +31,10 @@ public class AuthorService {
     }
 
     public void delete(long id) {
-        authorDao.delete(id);
+        Author author = findById(id);
+        List<Book> books = bookService.getBookWithAuthor(author);
+        books.stream()
+                        .forEach(b -> bookService.delete(b.getId()));
+        authorDao.delete(author);
     }
 }

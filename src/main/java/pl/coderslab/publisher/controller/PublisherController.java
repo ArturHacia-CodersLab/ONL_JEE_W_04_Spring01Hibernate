@@ -1,10 +1,13 @@
-package pl.coderslab.publisher;
+package pl.coderslab.publisher.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import pl.coderslab.publisher.Publisher;
+import pl.coderslab.publisher.PublisherService;
 
 @Controller
 @RequestMapping("/publisher")
@@ -29,9 +32,9 @@ public class PublisherController {
     }
 
     @RequestMapping("/all")
-    @ResponseBody
-    public String getAllPublishers() {
-        return publisherService.getAllPublishers().toString();
+    public String getAllPublishers(Model model) {
+        model.addAttribute("publishers", publisherService.getAllPublishers());
+        return "/publisher/all";
     }
 
     @RequestMapping("/update/{id}/{name}")
